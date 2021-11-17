@@ -4,13 +4,26 @@ import { formatUnits } from "@ethersproject/units";
 
 const Navbar = (props) => {
 
+  /*
+  using this for getting imformation ile account and 
+  functions like activate and deactivate
+  */
 	const { account, activateBrowserWallet, deactivate} = useEthers()
 
+  /* 
+  defining if the account is connected
+  */
   const isConnected = account !== undefined
 
+  /*
+  getting eth balance
+  */
   const tokenBalance = useEtherBalance(account);
 
-    const formattedTokenBalance: number = tokenBalance
+  /*
+  formatting eth balance because javascript cant handle 18 decimalse
+  */
+  const formattedTokenBalance: number = tokenBalance
     ? parseFloat(formatUnits(tokenBalance, 18))
     : 0;
 
@@ -27,12 +40,6 @@ const Navbar = (props) => {
       <div class="d-flex my-3">
         {isConnected ? (
         <>
-          <button type="button" class="btn btn-primary mx-2">
-            {`${account?.slice(0, 4)}...${account?.slice(-3)}`}
-          </button>
-          <button type="button" class="btn btn-warning mx-2">
-            {`${formattedTokenBalance}`}
-          </button>
           <button  class="btn btn-danger mx-2" onClick={deactivate}>
             Disconnect
           </button>
@@ -49,6 +56,20 @@ const Navbar = (props) => {
     </div>
   </div>
 </nav>
+{isConnected ? (
+  <div>
+<div class="container mt-4">
+  My Address: <span class="badge badge-lg  bg-primary text-light">{account}</span>
+</div>
+
+<div class="container mt-4">
+  My Balance: <span class="badge badge-lg  bg-primary text-light">{`${formattedTokenBalance}`}</span>
+</div>
+</div>
+  ):(
+  <div></div>
+  )}
+
     </>
   )
 }

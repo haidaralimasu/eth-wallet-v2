@@ -26,6 +26,7 @@ const handleClick = () => {
 }
 
   return (
+    <>
 <div class="container my-4">
     
 	<div>{disabled}</div>
@@ -40,28 +41,29 @@ const handleClick = () => {
   </div>
   <button onClick={(e) => handleClick()} class="btn btn-primary">Send</button>
 </div>
-<table class="table table-success my-4">
+</div>
+
+<table class="table table-success container" style={{maxWidth:"90%"}}>
   <thead>
     <tr>
-      <th scope="col">Sr</th>
-      <th scope="col">Value</th>
-      <th scope="col">To</th>
-      <th scope="col">Tx Hash</th>
+    <th style={{fontSize:"12px"}} scope="col">Sr</th>
+      <th style={{fontSize:"12px"}} scope="col">Value</th>
+      <th style={{fontSize:"12px"}} scope="col">To</th>
+      <th style={{fontSize:"12px"}} scope="col">Tx Hash</th>
     </tr>
   </thead>
   <tbody>
-	{transactions.map((transaction, index) => (
-	<tr>
-      <th scope="row">{index}</th>
-      <td>{`${parseFloat(formatUnits(transaction.transaction.value, 18))}`}</td>
-      <td>{`${transaction.transaction.to?.slice(0, 9)}...${transaction.transaction.to?.slice(-4)}`}</td>
-      <td>{`${transaction.transaction.hash?.slice(0, 9)}...${transaction.transaction.hash?.slice(-4)}`}</td>
+  {transactions.map((transaction, index) => (
+  <tr> 
+      <td style={{fontSize:"12px"}}>{index}</td>
+      <td style={{fontSize:"12px"}}>{parseFloat(formatUnits(transaction.transaction.value, 18))}</td>
+      <td style={{fontSize:"12px"}}>{transaction.transaction.to}</td>
+      <td style={{fontSize:"12px"}}>{transaction.transaction.hash}</td>
     </tr>
       ))}
       </tbody>
 </table>
-
-</div>
+</>
   )
 }
 
